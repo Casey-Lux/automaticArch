@@ -5,13 +5,13 @@ loadkeys es
 
 # Rev and creating partition
 fdisk -l
-cfdisk /dev/sda
+#cfdisk /dev/sda
 
 #!/bin/bash
 
 # Variables (adjust as needed)
 DISK="/dev/sda"  # Change this to your disk name (e.g., /dev/nvme0n1)
-BOOT_SIZE="512M"
+BOOT_SIZE="512"
 ROOT_SIZE="20G"   # You can adjust this size between 25G and 40G
 RAM_SIZE="$(free -h | awk '/^Mem:/ {print $2}')"  # Get RAM size in GB
 SWAP_SIZE=$(echo "$RAM_SIZE / 2" | bc)  # Half of the RAM size
@@ -55,11 +55,13 @@ fdisk -l
 pacman -S archlinux-keyring
 pacman-key --init
 pacman-key --populate archlinux
-dirmngr (create /root/.gnupg/dirmngr_ldapservers.conf)
-pacman-key --refresh-keys
+#dirmngr (create /root/.gnupg/dirmngr_ldapservers.conf)
+nohup dirmngr --daemon > /dev/null 2>&1 &
+nohup pacman-key --refresh-keys > /dev/null 2>&1 &
+
 
 # Programs installation
-pacstrap /mnt linux linux-firmware sof-firmware base networkmanager dhcpcd nano grub neovim netctl wpa_supplicant dialog man-db man-pages texinfo
+pacstrap -K /mnt linux linux-firmware sof-firmware base networkmanager dhcpcd nano grub neovim netctl wpa_supplicant dialog man-db man-pages texinfo
 
 # gen partitions tab
 genfstab /mnt >> /mnt/etc/fstab
