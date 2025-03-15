@@ -61,4 +61,4 @@ passwd "$NEW_USER"
 echo "Password configuration for root and $NEW_USER completed."
 
 # exit from chroot
-exit
+#exit

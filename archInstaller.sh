@@ -48,6 +48,7 @@ mkdir /mnt/home                 # Create home directory
 mount "${DISK}4" /mnt/home      # Mount home
 
 echo "Partitions created and mounted successfully."
+sleep 5
 
 fdisk -l
 
@@ -73,10 +74,10 @@ cp chroot_commands.sh /mnt/root/chroot_commands.sh
 chmod +x /mnt/root/chroot_commands.sh
 
 # Ejecutar el script dentro del entorno chroot
-arch-chroot /mnt /root/chroot_commands.sh
+#arch-chroot /mnt /root/chroot_commands.sh
 
 #arch-chroot /mnt
 
 # umount partitions
-umount -R /mnt
-reboot
+#umount -R /mnt
+#reboot
