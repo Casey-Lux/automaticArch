@@ -55,8 +55,8 @@ pacman -S archlinux-keyring
 pacman-key --init
 pacman-key --populate archlinux
 #dirmngr (create /root/.gnupg/dirmngr_ldapservers.conf)
-dirmngr
-pacman-key --refresh-keys
+dirmngr --daemon --homedir ~/.gnupg & disown
+timeout 120s pacman-key --refresh-keys
 
 # Programs installation
 pacstrap -K /mnt linux linux-firmware sof-firmware base networkmanager dhcpcd nano grub sudo neovim netctl wpa_supplicant dialog man-db man-pages texinfo
