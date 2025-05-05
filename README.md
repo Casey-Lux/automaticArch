@@ -42,7 +42,7 @@ pacman -Sy git
 Clone this repository:
 
 ```bash
-git clone <your-repo-link-here>
+git clone https://github.com/Casey-Lux/automaticArch
 ```
 
 ---
