@@ -5,6 +5,8 @@ HOSTNAME="yourhostname"  # Change this to your desired hostname
 TIMEZONE="America/Bogota"  # Change this to your desired timezone
 KEYMAP="es"  # Set your keyboard layout
 LOCALE="en_US.UTF-8"  # Set the system language locale
+DISK="/dev/sda"
+NEW_USER="yourusername"  # Replace with the desired username
 
 # Set hostname
 echo "$HOSTNAME" > /etc/hostname
@@ -39,19 +41,18 @@ echo "Date and time configuration complete."
 echo "System configuration for hostname, timezone, locale, and keymap completed."
 
 # install grub
-grub-install /dev/sda
+grub-install "$DISK"
 grub-mkconfig -o /boot/grub/grub.cfg
-
-# Variables (adjust as needed)
-NEW_USER="yourusername"  # Replace with the desired username
 
 # Set the root password
 echo "Setting root password..."
-passwd root
+passwd
 
 # Add new user
 echo "Creating new user: $NEW_USER"
 useradd -m "$NEW_USER"
+usermod -aG wheel "$NEW_USER"
+sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Set the new user's password
 echo "Setting password for $NEW_USER..."
@@ -61,4 +62,4 @@ passwd "$NEW_USER"
 echo "Password configuration for root and $NEW_USER completed."
 
 # exit from chroot
-#exit
+exit
