@@ -67,6 +67,10 @@ cat /mnt/etc/fstab
 
 # Enter to base system installed
 # Copy script into chroot
-cp chroot_commands.sh /mnt/root/chroot_commands.sh
+cp chroot-commands.sh /mnt/root/chroot-commands.sh
 chmod +x /mnt/root/chroot_commands.sh
 arch-chroot /mnt /root/chroot_commands.sh
+
+# umount & reboot
+umount -R /mnt
+reboot
